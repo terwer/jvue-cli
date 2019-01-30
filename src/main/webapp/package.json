@@ -7,6 +7,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "inspect":"./build/inspect.webpack.sh",
+    "dfgdg": "vue-cli-service demo",
     "ssr:build": "cd src/ssr && webpack --config webpack.config.generated.js --mode development"
   },
   "dependencies": {

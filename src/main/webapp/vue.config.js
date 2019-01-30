@@ -5,6 +5,7 @@ module.exports = {
       app: ["./src/app.js"]
     };
 
+
     if (process.env.NODE_ENV === "production") {
       // 为生产环境修改配置
       // console.log("production");

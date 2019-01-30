@@ -9,5 +9,4 @@ echo 'module.exports = ' >> ./tmp/tmp1
 vue inspect > ./tmp/tmp2
 cat ./tmp/tmp1 ./tmp/tmp2 > ./webpack.config.generated.js
 rm -rf ./tmp
-echo 'done.'
 exit 0
