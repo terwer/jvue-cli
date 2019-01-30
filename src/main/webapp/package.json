@@ -9,11 +9,12 @@
     "inspect": "vue inspect"
   },
   "dependencies": {
-    "vue": "^2.5.21",
-    "vue-router": "^3.0.1"
+    "vue": "^2.5.22",
+    "vue-router": "^3.0.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
+    "@babel/node": "^7.2.2",
     "@vue/cli-plugin-babel": "^3.3.0",
     "@vue/cli-plugin-eslint": "^3.3.0",
     "@vue/cli-service": "^3.3.0",
@@ -23,6 +24,7 @@
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
-    "vue-template-compiler": "^2.5.21"
+    "vue-template-compiler": "^2.5.22",
+    "webpack-cli": "^3.2.1"
   }
 }
