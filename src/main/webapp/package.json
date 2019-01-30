@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "inspect": "vue inspect"
+    "inspect":"./build/inspect.webpack.sh",
+    "ssr:build": "cd src/ssr && webpack --config webpack.config.generated.js --mode development"
   },
   "dependencies": {
     "vue": "^2.5.22",
