@@ -6,9 +6,10 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "inspect":"./build/inspect.webpack.sh",
-    "dfgdg": "vue-cli-service demo",
-    "ssr:build": "cd src/ssr && webpack --config webpack.config.generated.js --mode development"
+    "inspect": "./build/inspect.webpack.sh",
+    "ssrs": "vue-cli-service ssrs",
+    "ssrc": "vue-cli-service ssrc",
+    "ssr:build": "vue-cli-service ssrs && vue-cli-service ssrc"
   },
   "dependencies": {
     "vue": "^2.5.22",
@@ -26,6 +27,7 @@
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
+    "vue-cli-plugin-ssr-server": "file:./src/plugins/vue-cli-plugin-ssr-server",
     "vue-template-compiler": "^2.5.22",
     "webpack-cli": "^3.2.1"
   }

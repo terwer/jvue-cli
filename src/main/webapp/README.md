@@ -1,8 +1,15 @@
 # webapp
 
 ## Project setup
+
 ```
 yarn install
+```
+
+### Notice!!! Install plugins
+
+```
+yarn add -D file:./src/plugins/vue-cli-plugin-ssr-server
 ```
 
 ### Compiles and hot-reloads for development
