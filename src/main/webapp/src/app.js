@@ -1,4 +1,4 @@
-import createApp from "./main";
+import { createApp } from "./main";
 
-const vm = createApp();
+const { vm } = createApp();
 vm.$mount("#app");

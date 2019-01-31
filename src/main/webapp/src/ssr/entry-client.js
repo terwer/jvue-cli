@@ -1,6 +1,6 @@
-import createApp from "../main";
+import { createApp } from "../main";
 
 global.renderClient = () => {
-  const vm = createApp();
+  const { vm } = createApp();
   vm.$mount("#app");
 };

@@ -26,8 +26,8 @@ require("../../ssrsdist/js/about.js");
 // =============================
 console.log("renderServer test start");
 const context = {
-  // url: "/"
-  url: "/about"
+  url: "/"
+  // url: "/about"
 };
 
 const promise = global.renderServer(context);

@@ -15,8 +15,8 @@
     "build-entry-server": "vue-cli-service build --dest ssrsdist src/ssr/entry-server.js --report-json",
     "test-entry-server": "node ./tests/ssr/test-entry-server.js",
 
-    "ssrs": "vue-cli-service ssrs --target lib --name ssrs src/ssr/entry-client.js",
-    "ssrc": "vue-cli-service ssrc",
+    "ssrs": "vue-cli-service ssrs --name ssrs src/ssr/entry-server.js",
+    "ssrc": "vue-cli-service ssrc --name ssrc src/ssr/entry-client.js",
     "ssr:build": "vue-cli-service ssrs && vue-cli-service ssrc",
     "build-lib": "vue-cli-service build --target lib src/components/HelloWorld.vue --report-json",
     "lint:css": "stylelint --config stylelint.config.js 'src/**/*.css' --fix --color"
