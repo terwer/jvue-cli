@@ -15,9 +15,15 @@ var window = {
 };
 global.window = window;
 
+// =============================
+// Require compiled script
+// =============================
 require("../../ssrcdist/js/app.js");
 require("../../ssrcdist/js/about.js");
 
+// =============================
+// Test script start
+// =============================
 // const inBrowser = typeof window !== 'undefined' && typeof document !== 'undefined'
 // import { inBrowser } from "../../src/lib/vue-router-nashorn-3.0.2/src/util/dom"
 var dom = require("../../vender/lib/vue-router-nashorn/src/util/dom");
@@ -25,6 +31,7 @@ const inBrowser = dom.inBrowser;
 
 if (inBrowser) {
   console.log("inBrowser");
+  console.log("renderClient");
   global.renderClient();
 } else {
   console.log("not in inBrowser");
