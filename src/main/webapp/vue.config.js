@@ -2,7 +2,7 @@ module.exports = {
   // 插件配置
   pluginOptions: {
     ssrOptions: {
-      info: "ssr"
+      info: "plugin for ssr"
     }
   },
   configureWebpack: config => {
