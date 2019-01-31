@@ -1,9 +1,41 @@
-// 编译entry-server.js
-// yarn babel ./src/ssr/entry-server.js  --presets=@babel/preset-env
-// 编译并运行entry-server.js
-// yarn babel-node ./ssrsdist/js/app.js  --presets=@babel/preset-env
+// =============================
+// This is polyfill not in node
+// =============================
+//
+// 模拟window
+var window = {
+    navigator: {
+        userAgent: "Chrome"
+    },
+    location: {
+        href: "./",
+        replace:function (win) {
+            return win;
+        }
+    }
+};
+global.window = window;
 
-// var hello = () => {
+var document = {
+    querySelector: function (elementName) {
+        console.log("document.querySelector invoked,elementName:" + elementName);
+        return {
+            getAttribute: function (attributeName) {
+                console.log(
+                    "selector.getAttribute invoked,attributeName:" + attributeName
+                );
+                return "./"
+            }
+        };
+    }
+};
+global.document = document;
+
+require("../../dist/js/chunk-vendors.js");
+require("../../dist/js/app.js");
+require("../../dist/js/about.js");
+
+// const hello = () => {
 //   return "Hello World";
 // };
 //

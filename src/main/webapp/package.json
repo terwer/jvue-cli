@@ -5,9 +5,12 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build-lib": "vue-cli-service build --target lib src/App.vue",
+    "build-lib": "vue-cli-service build --target lib src/components/HelloWorld.vue",
     "lint": "vue-cli-service lint",
     "inspect": "./build/inspect.webpack.sh",
+    "test": "node ./src/ssr/entry-server-test.js",
+
+
     "ssrs": "vue-cli-service ssrs --target lib --name ssrs src/ssr/entry-client.js",
     "ssrc": "vue-cli-service ssrc",
     "ssr:build": "vue-cli-service ssrs && vue-cli-service ssrc"
