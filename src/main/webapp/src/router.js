@@ -5,7 +5,8 @@ import Home from "./views/Home.vue";
 Vue.use(Router);
 
 export default new Router({
-  mode: "history",
+  // process.env.NODE_ENV === "production" ? "history" : "hash",
+  mode: process.env.RENDER_MODE === "ssr" ? "history" : "hash",
   base: process.env.BASE_URL,
   routes: [
     {

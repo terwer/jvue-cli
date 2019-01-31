@@ -25,8 +25,6 @@ With Vue,Spring Boot and Java Nashorn Script engine for server-side-rendering
 cd src/main/webapp && yarn && yarn ssr:build
 ```
 
-notice:You can run ``ssr:build-dev`` in development mode to show error logs
-
 2、Run java mavem build
 
 ```
