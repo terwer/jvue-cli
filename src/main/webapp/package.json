@@ -5,19 +5,24 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build-lib": "vue-cli-service build --target lib src/components/HelloWorld.vue --report",
-    "build-entry-client": "vue-cli-service build --mode development --dest ssrcdist src/ssr/entry-client.js --report",
     "lint": "vue-cli-service lint",
-    "inspect": "./build/inspect.webpack.sh",
+    "inspect": "vue inspect",
+    "lint:src": "eslint ./src/*.js --fix --color",
+    "lint:ssr": "eslint ./src/ssr/*.js --fix --color",
+    "lint:components": "eslint ./src/components --ext .vue --fix --color",
+
+    "build-entry-client": "vue-cli-service ssrs --dest ssrcdist src/ssr/entry-client.js --report-json",
+    "entry-client-test": "node ./src/ssr/entry-client-test.js --presets=@babel/preset-env",
     "entry-server-test": "node ./src/ssr/entry-server-test.js",
-    "entry-client-test": "node ./src/ssr/entry-client-test.js",
     "ssrs": "vue-cli-service ssrs --target lib --name ssrs src/ssr/entry-client.js",
     "ssrc": "vue-cli-service ssrc",
-    "ssr:build": "vue-cli-service ssrs && vue-cli-service ssrc"
+    "ssr:build": "vue-cli-service ssrs && vue-cli-service ssrc",
+    "build-lib": "vue-cli-service build --target lib src/components/HelloWorld.vue --report-json",
+    "lint:css": "stylelint --config stylelint.config.js 'src/**/*.css' --fix --color"
   },
   "dependencies": {
     "vue": "^2.5.22",
-    "vue-router-nashorn": "file:./src/lib/vue-router-nashorn-3.0.2"
+    "vue-router-nashorn": "file:./vender/lib/vue-router-nashorn"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -25,25 +30,13 @@
     "@vue/cli-plugin-babel": "^3.3.0",
     "@vue/cli-plugin-eslint": "^3.3.0",
     "@vue/cli-service": "^3.3.0",
-    "@vue/cli-shared-utils": "^3.3.0",
     "@vue/eslint-config-prettier": "^4.0.1",
-    "acorn": "^6.0.6",
-    "acorn-walk": "^6.1.1",
     "babel-eslint": "^10.0.1",
-    "chalk": "^2.4.2",
-    "cliui": "^4.1.0",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
-    "fs-extra": "^7.0.1",
-    "globby": "^9.0.0",
-    "html-webpack-plugin": "^3.2.0",
-    "lodash.mapvalues": "^4.6.0",
-    "lodash.transform": "^4.6.0",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
     "vue-template-compiler": "^2.5.22",
-    "webpack": "^4.29.0",
-    "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "^3.2.1"
   }
 }

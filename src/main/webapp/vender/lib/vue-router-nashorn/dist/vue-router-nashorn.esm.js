@@ -566,7 +566,9 @@ function install (Vue) {
 
 /*  */
 
+// export const inBrowser = typeof window !== 'undefined' && typeof document !== 'undefined'
 var inBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';
+var inBrowser_1 = inBrowser;
 
 /*  */
 
@@ -1643,7 +1645,7 @@ function scrollToPosition (shouldScroll, position) {
 
 /*  */
 
-var supportsPushState = inBrowser && (function () {
+var supportsPushState = inBrowser_1 && (function () {
   var ua = window.navigator.userAgent;
 
   if (
@@ -1659,7 +1661,7 @@ var supportsPushState = inBrowser && (function () {
 })();
 
 // use User Timing api (if present) for more accurate key precision
-var Time = inBrowser && window.performance && window.performance.now
+var Time = inBrowser_1 && window.performance && window.performance.now
   ? window.performance
   : Date;
 
@@ -1994,7 +1996,7 @@ History.prototype.updateRoute = function updateRoute (route) {
 
 function normalizeBase (base) {
   if (!base) {
-    if (inBrowser) {
+    if (inBrowser_1) {
       // respect <base> tag
       var baseEl = document.querySelector('base');
       base = (baseEl && baseEl.getAttribute('href')) || '/';
@@ -2429,7 +2431,7 @@ var VueRouter = function VueRouter (options) {
   if (this.fallback) {
     mode = 'hash';
   }
-  if (!inBrowser) {
+  if (!inBrowser_1) {
     mode = 'abstract';
   }
   this.mode = mode;
@@ -2611,7 +2613,7 @@ function createHref (base, fullPath, mode) {
 VueRouter.install = install;
 VueRouter.version = '3.0.2';
 
-if (inBrowser && window.Vue) {
+if (inBrowser_1 && window.Vue) {
   window.Vue.use(VueRouter);
 }
 

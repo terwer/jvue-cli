@@ -4,9 +4,9 @@
 
 // 模拟window
 var window = {
-    navigator: {
-        userAgent: "Chrome"
-    }
+  navigator: {
+    userAgent: "Chrome"
+  }
 };
 global.window = window;
 
