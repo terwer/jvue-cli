@@ -6,14 +6,25 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "inspect": "./build/inspect.webpack.sh",
-    "ssrs": "vue-cli-service ssrs",
-    "ssrc": "vue-cli-service ssrc",
-    "ssr:build": "vue-cli-service ssrs && vue-cli-service ssrc"
+    "inspect": "vue inspect",
+    "lint:src": "eslint ./src/*.js --fix --color",
+    "lint:ssr": "eslint ./src/ssr/*.js --fix --color",
+    "lint:components": "eslint ./src/components --ext .vue --fix --color",
+    "build-entry-client": "vue-cli-service build --dest ssrcdist src/ssr/entry-client.js --report-json",
+    "test-entry-client": "node ./tests/ssr/test-entry-client.js",
+    "build-entry-server": "vue-cli-service build --dest ssrsdist src/ssr/entry-server.js --report-json",
+    "test-entry-server": "node ./tests/ssr/test-entry-server.js",
+
+    "ssrs": "vue-cli-service ssrs --name ssrs src/ssr/entry-server.js",
+    "ssrc": "vue-cli-service ssrc --name ssrc src/ssr/entry-client.js",
+    "ssr:build": "vue-cli-service ssrs && vue-cli-service ssrc",
+    "build-lib": "vue-cli-service build --target lib src/components/HelloWorld.vue --report-json",
+    "lint:css": "stylelint --config stylelint.config.js 'src/**/*.css' --fix --color"
   },
   "dependencies": {
     "vue": "^2.5.22",
-    "vue-router": "^3.0.2"
+    "vue-router-nashorn": "file:./vender/lib/vue-router-nashorn",
+    "vue-server-renderer": "^2.5.22"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -23,11 +34,11 @@
     "@vue/cli-service": "^3.3.0",
     "@vue/eslint-config-prettier": "^4.0.1",
     "babel-eslint": "^10.0.1",
+    "cross-env": "^5.2.0",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
-    "vue-cli-plugin-ssr-server": "file:./src/plugins/vue-cli-plugin-ssr-server",
     "vue-template-compiler": "^2.5.22",
     "webpack-cli": "^3.2.1"
   }

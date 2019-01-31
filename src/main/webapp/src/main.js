@@ -1,12 +1,17 @@
 import Vue from "vue";
 import App from "./App.vue";
-import router from "./router";
+import { createRouter } from "./router";
 
 Vue.config.productionTip = false;
 
-export default function createApp() {
-  return new Vue({
+export function createApp() {
+  // 创建 router 实例
+  const router = createRouter();
+  const vm = new Vue({
     router,
     render: h => h(App)
   });
+
+  // 返回 vm 和 router
+  return { vm, router };
 }
