@@ -25,9 +25,9 @@ module.exports = {
 
     if (process.env.NODE_ENV === "production") {
       // 为生产环境修改配置
-      // console.log("production");
+      console.log("change webpack config for production");
       // No need for splitting
-      // config.optimization.splitChunks = false;
+      config.optimization.splitChunks = false;
     } else {
       // 为开发环境修改配置
       // console.log("development");
