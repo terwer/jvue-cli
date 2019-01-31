@@ -37,12 +37,13 @@ if (promise) {
   promise.then(
     value => {
       console.log(value);
+      console.log("renderServer test run success");
     },
     reason => {
+      console.log("renderServer error");
       console.log(reason);
     }
   );
-  console.log("renderServer test run success");
 }
 
 // DEMO
