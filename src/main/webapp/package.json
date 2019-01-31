@@ -10,10 +10,12 @@
     "lint:src": "eslint ./src/*.js --fix --color",
     "lint:ssr": "eslint ./src/ssr/*.js --fix --color",
     "lint:components": "eslint ./src/components --ext .vue --fix --color",
+    "build-entry-client": "vue-cli-service build --dest ssrcdist src/ssr/entry-client.js --report-json",
+    "test-entry-client": "node ./tests/ssr/test-entry-client.js",
 
-    "build-entry-client": "vue-cli-service ssrs --dest ssrcdist src/ssr/entry-client.js --report-json",
-    "entry-client-test": "node ./src/ssr/entry-client-test.js --presets=@babel/preset-env",
-    "entry-server-test": "node ./src/ssr/entry-server-test.js",
+    "build-entry-server": "vue-cli-service build --dest ssrsdist src/ssr/entry-server.js --report-json",
+    "test-entry-server": "node ./tests/ssr/test-entry-server.js",
+
     "ssrs": "vue-cli-service ssrs --target lib --name ssrs src/ssr/entry-client.js",
     "ssrc": "vue-cli-service ssrc",
     "ssr:build": "vue-cli-service ssrs && vue-cli-service ssrc",
@@ -32,6 +34,7 @@
     "@vue/cli-service": "^3.3.0",
     "@vue/eslint-config-prettier": "^4.0.1",
     "babel-eslint": "^10.0.1",
+    "cross-env": "^5.2.0",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.9.0",

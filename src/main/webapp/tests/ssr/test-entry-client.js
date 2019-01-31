@@ -1,7 +1,7 @@
 // 编译app.js
-// babel ./src/ssr/entry-client-test.js --presets=@babel/preset-env
+// yarn babel ./tests/ssr/test-entry-client.js --presets=@babel/preset-env
 // 编译并运行app.js
-// yarn babel-node ./src/ssr/entry-client-test.js --presets=@babel/preset-env
+// yarn babel-node ./tests/ssr/test-entry-client.js --presets=@babel/preset-env
 
 // =============================
 // This is polyfill not in node
@@ -20,7 +20,7 @@ require("../../ssrcdist/js/about.js");
 
 // const inBrowser = typeof window !== 'undefined' && typeof document !== 'undefined'
 // import { inBrowser } from "../../src/lib/vue-router-nashorn-3.0.2/src/util/dom"
-var dom = require("../../src/lib/vue-router-nashorn-3.0.2/src/util/dom");
+var dom = require("../../vender/lib/vue-router-nashorn/src/util/dom");
 const inBrowser = dom.inBrowser;
 
 if (inBrowser) {

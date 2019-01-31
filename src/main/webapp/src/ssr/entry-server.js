@@ -1,4 +1,8 @@
 import createApp from "../main";
 
-const vm = createApp();
-vm.$mount("#app");
+global.renderServer = () => {
+    const vm = createApp();
+    console.log("vm")
+    console.log(vm)
+    // vm.$mount("#app");
+};
