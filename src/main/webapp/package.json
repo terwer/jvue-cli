@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "inspect": "./build/inspect.webpack.sh",
-    "ssrs": "vue-cli-service ssrs",
+    "ssrs": "vue-cli-service ssrs --target lib --name ssrs src/ssr/entry-client.js",
     "ssrc": "vue-cli-service ssrc",
     "ssr:build": "vue-cli-service ssrs && vue-cli-service ssrc"
   },

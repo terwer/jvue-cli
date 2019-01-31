@@ -25,8 +25,26 @@ module.exports = (api, projectOptions) => {
     "ssrs",
     {
       description: "ssr server plugin for vue cli 3",
-      usage: "vue-cli-service ssrs",
-      options: {}
+      usage: "vue-cli-service ssrs [options] [entry|pattern]",
+      options: {
+        "--mode": `specify env mode (default: production)`,
+        "--dest": `specify output directory (default: ${
+          projectOptions.outputDir
+        })`,
+        "--modern": `build app targeting modern browsers with auto fallback`,
+        "--no-unsafe-inline": `build app without introducing inline scripts`,
+        "--target": `app | lib | wc | wc-async (default: ${
+          projectOptions.target
+        })`,
+        "--formats": `list of output formats for library builds (default: ${
+          projectOptions.formats
+        })`,
+        "--name": `name for lib or web-component mode (default: "name" in package.json or entry filename)`,
+        "--no-clean": `do not remove the dist directory before building the project`,
+        "--report": `generate report.html to help analyze bundle content`,
+        "--report-json": "generate report.json to help analyze bundle content",
+        "--watch": `watch for changes`
+      }
     },
     async args => {
       // 读取插件默认配置
@@ -40,9 +58,7 @@ module.exports = (api, projectOptions) => {
 
       const config = api.resolveWebpackConfig();
       // 修改 webpack 配置
-      config.entry = {
-        app: ["./src/ssr/entry-server.js"]
-      };
+      // entry 作为参数传递
       config.output.filename = "js/[name].ssr.js";
       config.output.chunkFilename = "js/[name].ssr.js";
 
@@ -65,6 +81,9 @@ module.exports = (api, projectOptions) => {
       if (args.target !== "app") {
         args.entry = args.entry || "src/App.vue";
       }
+
+      console.log("args.entry:");
+      console.log(args.entry);
 
       process.env.VUE_CLI_BUILD_TARGET = args.target;
       if (args.modern && args.target === "app") {
