@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import javax.script.ScriptContext;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -65,14 +66,22 @@ public class VueRendererImpl implements VueRenderer {
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("rnd", System.currentTimeMillis());
         resultMap.put("showError", SHOW_SERVER_ERROR);
+
+        ScriptObjectMirror nashornEventLoop = null;
         try {
             logger.info("服务端调用renderServer前，设置路由上下文context:" + JSON.toJSONString(context));
+
+            promiseResolved = false;
 
             // 调用render方法返回promise
             ScriptObjectMirror promise = (ScriptObjectMirror) engine.callRender("renderServer", context);
             logger.debug("promise" + JSON.toJSONString(promise));
-
             promise.callMember("then", fnResolve, fnRejected);
+
+            // 执行nashornEventLoops.process()使主线程执行回调函数
+            engine.eval("global.nashornEventLoop.process();");
+            // ScriptObjectMirror nashornEventLoop = engine.getGlobalGlobalMirrorObject("nashornEventLoop");
+            // nashornEventLoop.callMember("process");
 
             int i = 0;
             int jsWaitTimeout = 1000 * 10;
@@ -81,10 +90,6 @@ public class VueRendererImpl implements VueRenderer {
 
             if (!promiseRejected) {
                 while (!promiseResolved && totalWaitTime < jsWaitTimeout) {
-                    // 执行nashornEventLoops.process()使主线程执行回调函数
-                    engine.eval("global.nashornEventLoop.process();");
-                    // ScriptObjectMirror nashornEventLoop = engine.getGlobalGlobalMirrorObject("nashornEventLoop");
-                    // nashornEventLoop.callMember("process");
                     try {
                         Thread.sleep(interval);
                     } catch (InterruptedException e) {
@@ -94,7 +99,6 @@ public class VueRendererImpl implements VueRenderer {
                     if (interval < 500) interval = interval * 2;
                     i = i + 1;
                 }
-                engine.eval("global.nashornEventLoop.reset();");
 
                 // 处理返回结果
                 if (CollectionUtils.isEmpty(htmlObject)) {
@@ -131,6 +135,10 @@ public class VueRendererImpl implements VueRenderer {
             resultMap.put("renderStatus", 0);
             resultMap.put("content", "failed to render vue component");
             logger.error("failed to render vue component", e);
+        } finally {
+            // reset nashornEventLoop
+            logger.info("reset nashornEventLoop");
+            engine.eval("global.nashornEventLoop.reset();");
         }
         return resultMap;
     }
