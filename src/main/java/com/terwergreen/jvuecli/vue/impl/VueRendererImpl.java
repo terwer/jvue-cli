@@ -75,7 +75,7 @@ public class VueRendererImpl implements VueRenderer {
             promise.callMember("then", fnResolve, fnRejected);
 
             int i = 0;
-            int jsWaitTimeout = 1000 * 60;
+            int jsWaitTimeout = 1000 * 10;
             int interval = 200; // 等待时间间隔
             int totalWaitTime = 0; // 实际等待时间
 
@@ -118,11 +118,11 @@ public class VueRendererImpl implements VueRenderer {
                     resultMap.put("content", outputHtml);
                 }
             } else {
-                if(CollectionUtils.isEmpty(htmlObject)){
+                if (CollectionUtils.isEmpty(htmlObject)) {
                     resultMap.put("renderStatus", 0);
                     resultMap.put("content", "500 Internal Server Error:promiseRejected");
                     logger.error("500 Internal Server Error:promiseRejected");
-                }else{
+                } else {
                     resultMap.put("renderStatus", 0);
                     resultMap.put("content", htmlObject.get("data"));
                 }

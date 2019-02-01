@@ -19,8 +19,6 @@ global.window = window;
 // Require compiled script
 // =============================
 require("../../ssrdist/server/app.js");
-require("../../ssrdist/server/home.js");
-require("../../ssrdist/server/about.js");
 
 // =============================
 // Test script start
@@ -28,7 +26,7 @@ require("../../ssrdist/server/about.js");
 console.log("renderServer test start");
 const context = {
   // url: "/"
-  url: "/about"
+  url: "/post/my-post.html"
 };
 
 const promise = global.renderServer(context);
