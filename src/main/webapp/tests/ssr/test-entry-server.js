@@ -18,16 +18,16 @@ global.window = window;
 // =============================
 // Require compiled script
 // =============================
-require("../../ssrsdist/js/app.js");
-require("../../ssrsdist/js/about.js");
+require("../../ssrdist/server/app.js");
+require("../../ssrdist/server/about.js");
 
 // =============================
 // Test script start
 // =============================
 console.log("renderServer test start");
 const context = {
-  url: "/"
-  // url: "/about"
+  // url: "/"
+  url: "/about"
 };
 
 const promise = global.renderServer(context);
@@ -35,13 +35,13 @@ console.log("promise");
 console.log(promise);
 if (promise) {
   promise.then(
-    value => {
-      console.log(value);
+    resolve => {
+      console.log(resolve);
       console.log("renderServer test run success");
     },
-    reason => {
+    reject => {
       console.log("renderServer error");
-      console.log(reason);
+      console.log(reject);
     }
   );
 }
