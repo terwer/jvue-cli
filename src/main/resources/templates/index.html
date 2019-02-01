@@ -6,6 +6,7 @@
     | ||  __/| |    \ V  V /|  __/| |
     |_| \___||_|     \_/\_/  \___||_|
 -->
+<!--suppress ALL -->
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -17,24 +18,41 @@
     <title>Next Vue SSR Project for Java Nashorn Script engine</title>
     <meta name="keywords" content="jvue,vue,spring,spring-boot,nashorn,ssr,server-side-rendering">
     <meta name="description" content="Next light-weight,responsive project With Vue,Spring Boot and Java Nashorn Script engine">
-    <link rel="icon" th:href="'/favicon.ico?rnd='+${rnd}" type="image/x-icon" />
-    <link rel="shortcut icon" th:href="'/favicon.ico?rnd='+${rnd}" type="image/x-icon" />
+    <link rel="icon" th:href="'/favicon.ico?rnd='+${rnd}" type="image/x-icon"/>
+    <link rel="shortcut icon" th:href="'/favicon.ico?rnd='+${rnd}" type="image/x-icon"/>
     <link th:href="'/css/app.css?rnd='+${rnd}" rel="stylesheet">
-    <link th:href="'/css/home.css?rnd='+${rnd}" rel="stylesheet">
 </head>
 <body>
 <noscript>
     <strong>We're sorry but this page doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
 </noscript>
-<render th:utext="${content}" th:remove="tag"></render>
+<client-only th:if="${renderStatus==0}" th:remove="tag">
+    <!-- 降级到客户端渲染 -->
+    <div id="app"></div>
+    <div th:if="${showError==1}" th:utext="${content}" th:remove="tag"></div>
+</client-only>
+
+<server-only th:if="${renderStatus==1}" th:remove="tag">
+    <!-- 服务端渲染 -->
+    <div th:utext="${content}" th:remove="tag"></div>
+</server-only>
 <script type="text/javascript" th:src="'/js/app.js?rnd='+${rnd}"></script>
-<script type="text/javascript" th:src="'/js/home.js?rnd='+${rnd}"></script>
-<script type="text/javascript" th:src="'/js/about.js?rnd='+${rnd}"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        console.log('DOMContentLoaded');
-        renderClient();
-    });
+
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    var renderStatus = /*[[${renderStatus}]]*/ 0;
+    console.log("renderStatus", renderStatus);
+    /*]]>*/
+    <!-- 降级到客户端渲染 -->
+    if (renderStatus == 0) {
+        console.log("降级到客户端渲染");
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('DOMContentLoaded');
+            renderClient();
+        });
+    }else{
+        console.log("服务端渲染");
+    }
 </script>
 </body>
 </html>

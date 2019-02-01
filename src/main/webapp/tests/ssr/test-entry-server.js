@@ -19,6 +19,7 @@ global.window = window;
 // Require compiled script
 // =============================
 require("../../ssrdist/server/app.js");
+require("../../ssrdist/server/home.js");
 require("../../ssrdist/server/about.js");
 
 // =============================

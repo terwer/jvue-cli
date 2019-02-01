@@ -9,7 +9,7 @@ public interface VueRenderer {
     /**
      * 根据上下文渲染实例
      * @param context 上下文
-     * @return 服务端html
+     * @return 服务端html及对应状态
      */
-    String renderContent(Map<String, Object> context);
+    Map<String,Object> renderContent(Map<String, Object> context);
 }

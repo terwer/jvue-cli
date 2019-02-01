@@ -9,8 +9,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
+import org.springframework.util.CollectionUtils;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -25,6 +26,8 @@ import java.util.function.Consumer;
 @Scope("prototype")
 public class VueRendererImpl implements VueRenderer {
     private final Log logger = LogFactory.getLog(this.getClass());
+    // 是否显示错误到浏览器
+    private static final Integer SHOW_SERVER_ERROR = 1;
     private NashornUtil engine;
 
     private final Object promiseLock = new Object();
@@ -54,23 +57,25 @@ public class VueRendererImpl implements VueRenderer {
         engine = NashornUtil.getInstance();
         // 编译Vue server
         engine.eval(VueUtil.readVueFile("app.js"));
-        engine.eval(VueUtil.readVueFile("home.js"));
-        engine.eval(VueUtil.readVueFile("about.js"));
         logger.info("Vue server编译成功，编译引擎为Nashorn");
     }
 
     @Override
-    public String renderContent(Map<String, Object> context) {
+    public Map<String, Object> renderContent(Map<String, Object> context) {
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("rnd", System.currentTimeMillis());
+        resultMap.put("showError", SHOW_SERVER_ERROR);
         try {
             logger.info("服务端调用renderServer前，设置路由上下文context:" + JSON.toJSONString(context));
 
             // 调用render方法返回promise
             ScriptObjectMirror promise = (ScriptObjectMirror) engine.callRender("renderServer", context);
+            logger.debug("promise" + JSON.toJSONString(promise));
+
             promise.callMember("then", fnResolve, fnRejected);
-            promise.callMember("catch", fnRejected);
 
             int i = 0;
-            int jsWaitTimeout = 1000 * 6;
+            int jsWaitTimeout = 1000 * 60;
             int interval = 200; // 等待时间间隔
             int totalWaitTime = 0; // 实际等待时间
 
@@ -89,29 +94,44 @@ public class VueRendererImpl implements VueRenderer {
                     if (interval < 500) interval = interval * 2;
                     i = i + 1;
                 }
-            }
-            engine.eval("global.nashornEventLoop.reset();");
+                engine.eval("global.nashornEventLoop.reset();");
 
-            if (StringUtils.isEmpty(htmlObject)) {
-                return "Server Timed Out";
-            }
-            logger.info("renderServer获取数据成功");
-            logger.debug("htmlObject:" + JSON.toJSONString(htmlObject));
+                // 处理返回结果
+                if (CollectionUtils.isEmpty(htmlObject)) {
+                    logger.error("500 Internal Server Error:Server render error,Timed out more than 60 seconds...");
+                    resultMap.put("renderStatus", 0);
+                    resultMap.put("content", "500 Internal Server Error:Server render error,Timed out more than 60 seconds...");
+                    return resultMap;
+                }
 
-            // 处理返回结果
-            if (htmlObject.size() == 0) {
-                return "Server render error";
-            }
-            int status = (int) htmlObject.get("status");
-            if (status == 0) {
-                return (String) htmlObject.get("msg");
+                logger.info("renderServer获取数据成功");
+                logger.debug("htmlObject:" + JSON.toJSONString(htmlObject));
+                int status = (int) htmlObject.get("status");
+                if (status == 0) {
+                    resultMap.put("renderStatus", 0);
+                    resultMap.put("content", htmlObject.get("msg"));
+                    return resultMap;
+                } else {
+                    String outputHtml = (String) htmlObject.get("data");
+                    logger.debug("outputHtml:" + JSON.toJSONString(outputHtml));
+                    resultMap.put("renderStatus", 1);
+                    resultMap.put("content", outputHtml);
+                }
             } else {
-                String outputHtml = (String) htmlObject.get("data");
-                logger.debug("outputHtml:" + JSON.toJSONString(outputHtml));
-                return outputHtml;
+                if(CollectionUtils.isEmpty(htmlObject)){
+                    resultMap.put("renderStatus", 0);
+                    resultMap.put("content", "500 Internal Server Error:promiseRejected");
+                    logger.error("500 Internal Server Error:promiseRejected");
+                }else{
+                    resultMap.put("renderStatus", 0);
+                    resultMap.put("content", htmlObject.get("data"));
+                }
             }
         } catch (Exception e) {
-            throw new IllegalStateException("failed to render vue component", e);
+            resultMap.put("renderStatus", 0);
+            resultMap.put("content", "failed to render vue component");
+            logger.error("failed to render vue component", e);
         }
+        return resultMap;
     }
 }

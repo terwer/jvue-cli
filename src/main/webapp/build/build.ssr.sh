@@ -20,4 +20,4 @@ cp -r ../ssrcdist/* ./client
 cp -r ../ssrsdist/js/* ./server
 rm -rf ../ssrcdist
 rm -rf ../ssrsdist
-echo "copye finish.🌟 "
+echo "build ssr finished.🌟 "

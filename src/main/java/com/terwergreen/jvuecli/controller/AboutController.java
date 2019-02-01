@@ -28,9 +28,8 @@ public class AboutController {
         Map<String, Object> context = new HashMap<>();
         context.put("url", "/about");
 
-        String app = vueRenderer.renderContent(context);
-        model.addAttribute("content", app);
-        model.addAttribute("rnd", System.currentTimeMillis());
+        Map<String, Object> resultMap = vueRenderer.renderContent(context);
+        model.addAllAttributes(resultMap);
         return "index";
     }
 }
