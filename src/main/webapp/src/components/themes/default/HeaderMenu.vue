@@ -8,7 +8,7 @@
           :to="item.link"
           :active="active === item.link"
           @click="selected(item.link)"
-          >{{ item.name }}</b-nav-item
+          >{{ item.name }} {{active}} {{item.link}} {{active === item.link}}</b-nav-item
         >
       </b-nav>
     </b-col>
