@@ -2,7 +2,7 @@
   <b-container fluid>
     <HeaderTime />
     <Header title="jvue" />
-    <h1>This is an about page</h1>
+    <h1>This is category {{ catId }}</h1>
     <Footer />
     <FriendLink />
   </b-container>
@@ -18,7 +18,12 @@ import Footer from "../components/themes/default/Footer";
 import FriendLink from "../components/themes/default/FriendLink";
 
 export default {
-  name: "About",
+  name: "Category",
+  computed: {
+    catId() {
+      return this.$route.params.id;
+    }
+  },
   components: {
     HeaderTime,
     Header,
@@ -27,3 +32,4 @@ export default {
   }
 };
 </script>
+<style scoped></style>
