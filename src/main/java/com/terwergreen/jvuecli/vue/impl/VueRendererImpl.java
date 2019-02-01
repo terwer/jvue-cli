@@ -54,6 +54,7 @@ public class VueRendererImpl implements VueRenderer {
         engine = NashornUtil.getInstance();
         // 编译Vue server
         engine.eval(VueUtil.readVueFile("app.js"));
+        engine.eval(VueUtil.readVueFile("home.js"));
         engine.eval(VueUtil.readVueFile("about.js"));
         logger.info("Vue server编译成功，编译引擎为Nashorn");
     }
