@@ -1,6 +1,7 @@
 // yarn babel ./src/ssr/entry-server.js --presets=@babel/preset-env
 
 import { createApp } from "../main";
+import { isInNashorn } from "../commom/NashornUtil";
 
 const renderVueComponentToString = require("vue-server-renderer/basic.js");
 
@@ -16,6 +17,11 @@ global.renderServer = context => {
   return new Promise((resolve, reject) => {
     // 解构赋值
     const { vm, router } = createApp();
+    // 执行nashorn事件循环
+    console.log("global.nashornEventLoop", global.nashornEventLoop);
+    if (isInNashorn() && global.nashornEventLoop) {
+      global.nashornEventLoop.process();
+    }
     // 设置服务器端router的位置
     // 给路由推一条记录，上面的{app,router}只是一个对象，没有走真正渲染那步，
     // 所以只有主动调用router.push()它才会执行这部分的代码，

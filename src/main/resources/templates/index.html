@@ -44,15 +44,15 @@
     console.log("renderStatus", renderStatus);
     /*]]>*/
     <!-- 降级到客户端渲染 -->
-    if (renderStatus == 0) {
+    // if (renderStatus == 0) {
         console.log("降级到客户端渲染");
         document.addEventListener('DOMContentLoaded', function () {
             console.log('DOMContentLoaded');
             renderClient();
         });
-    }else{
-        console.log("服务端渲染");
-    }
+    // }else{
+    //     console.log("服务端渲染");
+    // }
 </script>
 </body>
 </html>

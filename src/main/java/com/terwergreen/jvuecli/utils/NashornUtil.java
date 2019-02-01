@@ -36,7 +36,6 @@ public class NashornUtil {
      * Vue资源文件目录
      */
     private static final String LIB_DIR = "static/lib";
-    private static final String POLYFILL_FILE_NAME = "nashorn-polyfill.js";
 
     public static synchronized NashornUtil getInstance() {
         if (nashornUtil == null) {
@@ -60,7 +59,10 @@ public class NashornUtil {
 
         try {
             // 编译nashorn-polyfill
-            engine.eval(read(LIB_DIR + File.separator + POLYFILL_FILE_NAME));
+            engine.eval(read(LIB_DIR + File.separator + "global-polyfill.js"));
+            logger.info("polyfill global finish");
+            engine.eval(read(LIB_DIR + File.separator + "timer-polyfill.js"));
+            logger.info("polyfill timer finish");
             logger.info("nashorn-polyfill编译成功，编译引擎为Nashorn");
         } catch (ScriptException e) {
             logger.error("nashorn-polyfill解析错误", e);
