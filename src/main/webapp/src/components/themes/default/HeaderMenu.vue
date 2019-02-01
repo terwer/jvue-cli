@@ -8,7 +8,7 @@
           :to="item.link"
           :active="active === item.link"
           @click="selected(item.link)"
-          >{{ item.name }} {{active}} {{item.link}} {{active === item.link}}</b-nav-item
+          >{{ item.name }}</b-nav-item
         >
       </b-nav>
     </b-col>
@@ -22,9 +22,14 @@ export default {
     return {
       menuList: [
         {
-          id: 1,
+          id: 0,
           name: "首页",
-          link: "/"
+          link: "/home"
+        },
+        {
+          id: 1,
+          name: "文章",
+          link: "/post/1.html"
         },
         {
           id: 2,
@@ -62,17 +67,12 @@ export default {
           link: "/auth/register"
         }
       ],
-      active: "/"
+      active: ""
     };
   },
-  watch: {
-    active: function() {
-      console.log("active", this.active);
-    }
-  },
+  watch: {},
   methods: {
     selected(name) {
-      console.log(name);
       this.active = name;
     }
   }

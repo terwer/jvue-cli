@@ -2,7 +2,7 @@
   <b-container fluid>
     <HeaderTime />
     <Header title="jvue" />
-    <h1>This is category {{ catId }}</h1>
+    <h1 class="text-center">This is category {{ catId }}</h1>
     <Footer />
     <FriendLink />
   </b-container>

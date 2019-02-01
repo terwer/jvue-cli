@@ -2,7 +2,7 @@
   <b-container fluid>
     <HeaderTime />
     <Header title="jvue" />
-    <h1 class="text-center">This is an about page</h1>
+    <h1 class="text-center">This is Search page</h1>
     <Footer />
     <FriendLink />
   </b-container>
@@ -18,7 +18,7 @@ import Footer from "../components/themes/default/Footer";
 import FriendLink from "../components/themes/default/FriendLink";
 
 export default {
-  name: "About",
+  name: "Search",
   components: {
     HeaderTime,
     Header,
@@ -27,3 +27,5 @@ export default {
   }
 };
 </script>
+
+<style scoped></style>

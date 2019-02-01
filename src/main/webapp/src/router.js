@@ -6,6 +6,9 @@ import Index from "./views/Index.vue";
 import About from "./views/About.vue";
 import Detail from "./views/Detail";
 import Category from "./views/Category";
+import Login from "./views/Login";
+import Register from "./views/Register";
+import Search from "./views/Search";
 
 Vue.use(VueRouter);
 
@@ -19,11 +22,26 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     // component: () => import(/* webpackChunkName: "index" */ "./views/Index.vue")
   },
-  { path: "/home", redirect: { name: "index" } },
+  { path: "/home", name: "home", component: Index },
   {
     path: "/about",
     name: "about",
     component: About
+  },
+  {
+    path: "/auth/login",
+    name: "login",
+    component: Login
+  },
+  {
+    path: "/auth/register",
+    name: "register",
+    component: Register
+  },
+  {
+    path: "/s/:k",
+    name: "search",
+    component: Search
   },
   {
     path: "/post/:id.html",
