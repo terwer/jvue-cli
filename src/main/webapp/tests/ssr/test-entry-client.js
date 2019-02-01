@@ -18,8 +18,8 @@ global.window = window;
 // =============================
 // Require compiled script
 // =============================
-require("../../ssrcdist/js/app.js");
-require("../../ssrcdist/js/about.js");
+require("../../ssrdist/client/js/app.js");
+require("../../ssrdist/client/js/about.js");
 
 // =============================
 // Test script start

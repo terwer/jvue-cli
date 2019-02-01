@@ -22,7 +22,7 @@ With Vue,Spring Boot and Java Nashorn Script engine for server-side-rendering
 1、Go to [webapp](src/main/webapp) and run vue ssr build
 
 ```
-cd src/main/webapp && yarn && yarn ssr:build
+cd src/main/webapp && yarn && yarn build-ssr
 ```
 
 2、Run java mavem build

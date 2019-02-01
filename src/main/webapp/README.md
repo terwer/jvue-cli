@@ -10,7 +10,6 @@ yarn
 
 ```
 yarn add file:./src/lib/vue-router-nashorn
-yarn add -D file:./src/plugins/vue-cli-plugin-ssr-server
 ```
 
 ### Compiles and hot-reloads for development
