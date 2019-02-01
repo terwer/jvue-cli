@@ -23,3 +23,8 @@
 /nbdist/
 /.nb-gradle/
 /build/
+
+rebel.xml
+
+build/build.prod.sh
+application-prod.properties

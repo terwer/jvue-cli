@@ -14,15 +14,22 @@
 </p>
 
 # Introduction
-## jvue
+## jvue-cli
 Next light-weight,responsive project
-With Vue,Spring Boot and Java Nashorn Script engine for server-side-rendering
+With Vue,Vue Cli 3,Spring Boot and Java Nashorn Script engine for server-side-rendering
 
 # Build setup
+
+> ### Notice!!
+
+> You can run below simply by ``./build/build.dev.sh``, no other command needed
+
+or you can also do the follow step by step:
+
 1、Go to [webapp](src/main/webapp) and run vue ssr build
 
 ```
-cd src/main/webapp && yarn && yarn build-ssr
+cd src/main/webapp && yarn && yarn build:ssr
 ```
 
 2、Run java mavem build
@@ -31,7 +38,13 @@ cd src/main/webapp && yarn && yarn build-ssr
 mvn clean package -DskipTests
 ```
 
-3、Copy ``target/ROOT.war`` to ``${TOMCAT_HOME}/webapps``
+3 Run
+
+```
+mvn spring-boot:run
+```
+
+4、Copy ``target/ROOT.war`` to ``${TOMCAT_HOME}/webapps``
 
 # Structure
 

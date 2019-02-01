@@ -1,0 +1,38 @@
+<!--
+  _______
+ |__   __|
+    | |  ___  _ __ __      __ ___  _ __
+    | | / _ \| '__|\ \ /\ / // _ \| '__|
+    | ||  __/| |    \ V  V /|  __/| |
+    |_| \___||_|     \_/\_/  \___||_|
+-->
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Next Vue SSR Project for Java Nashorn Script engine</title>
+    <meta name="keywords" content="jvue,vue,spring,spring-boot,nashorn,ssr,server-side-rendering">
+    <meta name="description" content="Next light-weight,responsive project With Vue,Spring Boot and Java Nashorn Script engine">
+    <link rel="icon" th:href="'/client/favicon.ico?rnd='+${rnd}" type="image/x-icon" />
+    <link rel="shortcut icon" th:href="'/client/favicon.ico?rnd='+${rnd}" type="image/x-icon" />
+    <link th:href="'/client/css/app.css?rnd='+${rnd}" rel="stylesheet">
+</head>
+<body>
+<noscript>
+    <strong>We're sorry but this page doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+</noscript>
+<render th:utext="${content}" th:remove="tag"></render>
+<script type="text/javascript" th:src="'/client/js/app.js?rnd='+${rnd}"></script>
+<script type="text/javascript" th:src="'/client/js/about.js?rnd='+${rnd}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        console.log('DOMContentLoaded');
+        renderClient();
+    });
+</script>
+</body>
+</html>

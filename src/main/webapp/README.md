@@ -22,6 +22,11 @@ yarn serve
 yarn build
 ```
 
+### Compiles and minifies for ssr production
+```
+yarn build:ssr
+```
+
 ### Run your tests
 ```
 yarn test

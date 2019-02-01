@@ -10,12 +10,12 @@ mkdir client
 mkdir server
 
 # build client
-yarn build-entry-client
+yarn build:entry-client
 # build server
-yarn build-entry-server
+yarn build:entry-server
 
 echo "build done,copying files..."
-pwd
+rm ../ssrcdist/index.html
 cp -r ../ssrcdist/* ./client
 cp -r ../ssrsdist/js/* ./server
 rm -rf ../ssrcdist
