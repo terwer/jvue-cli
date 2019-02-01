@@ -21,6 +21,7 @@
     "build:ssr": "./build/build.ssr.sh"
   },
   "dependencies": {
+    "bootstrap-vue": "^2.0.0-rc.11",
     "vue": "^2.5.22",
     "vue-router-nashorn": "file:./vender/lib/vue-router-nashorn",
     "vue-server-renderer": "^2.5.22"

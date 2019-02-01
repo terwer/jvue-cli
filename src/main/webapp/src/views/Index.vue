@@ -1,16 +1,19 @@
 <template>
-  <!--<b-container fluid>-->
-  <!--<HeaderTime />-->
-  <!--<Header title="jvue" />-->
-  <!--<Body />-->
-  <!--<Footer />-->
-  <!--<FriendLink />-->
-  <div>This is Index</div>
-  <!--</b-container>-->
+  <b-container fluid>
+    <HeaderTime />
+    <!--<Header title="jvue" />-->
+    <!--<Body />-->
+    <!--<Footer />-->
+    <!--<FriendLink />-->
+    <div>This is Index</div>
+  </b-container>
 </template>
 
 <script>
-// import HeaderTime from "./HeaderTime";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
+
+import HeaderTime from "../components/themes/default/HeaderTime";
 // import Header from "./Header";
 // import Body from "./Body";
 // import Footer from "./Footer";
@@ -33,7 +36,7 @@ export default {
     };
   },
   components: {
-    // HeaderTime,
+    HeaderTime
     // Header,
     // Body
     // Footer,
