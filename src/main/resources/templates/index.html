@@ -29,7 +29,7 @@
 <client-only th:if="${renderStatus==0}" th:remove="tag">
     <!-- 降级到客户端渲染 -->
     <div id="app"></div>
-    <div th:if="${showError==1}" th:utext="${content}" th:remove="tag" class="text-center"></div>
+    <h1 th:if="${showError==1}" th:utext="${content}" class="text-center"></h1>
 </client-only>
 
 <server-only th:if="${renderStatus==1}" th:remove="tag">
@@ -43,7 +43,6 @@
     var renderStatus = /*[[${renderStatus}]]*/ 0;
     console.log("renderStatus", renderStatus);
     /*]]>*/
-    <!-- 降级到客户端渲染 -->
     if (renderStatus == 1) {
         console.log("服务端渲染成功");
     }
