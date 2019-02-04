@@ -7,11 +7,9 @@ import com.terwergreen.jvuecli.vue.VueRenderer;
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import javax.script.ScriptContext;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -24,7 +22,6 @@ import java.util.function.Consumer;
  * 2019/2/1 11:29
  **/
 @Service
-@Scope("prototype")
 public class VueRendererImpl implements VueRenderer {
     private final Log logger = LogFactory.getLog(this.getClass());
     // 是否显示错误到浏览器
@@ -79,9 +76,9 @@ public class VueRendererImpl implements VueRenderer {
             promise.callMember("then", fnResolve, fnRejected);
 
             // 执行nashornEventLoops.process()使主线程执行回调函数
-            engine.eval("global.nashornEventLoop.process();");
-            // ScriptObjectMirror nashornEventLoop = engine.getGlobalGlobalMirrorObject("nashornEventLoop");
-            // nashornEventLoop.callMember("process");
+            // engine.eval("global.nashornEventLoop.process();");
+            nashornEventLoop = engine.getGlobalGlobalMirrorObject("nashornEventLoop");
+            nashornEventLoop.callMember("process");
 
             int i = 0;
             int jsWaitTimeout = 1000 * 10;
@@ -138,7 +135,8 @@ public class VueRendererImpl implements VueRenderer {
         } finally {
             // reset nashornEventLoop
             logger.info("reset nashornEventLoop");
-            engine.eval("global.nashornEventLoop.reset();");
+            // engine.eval("global.nashornEventLoop.reset();");
+            nashornEventLoop.callMember("reset");
         }
         return resultMap;
     }

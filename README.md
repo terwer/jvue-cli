@@ -22,11 +22,11 @@ With Vue,Vue Cli 3,Spring Boot and Java Nashorn Script engine for server-side-re
 
 > ### Notice!!
 
-> You can run below simply by ``./build/build.dev.sh``, no other command needed
-
-or you can also do the follow step by step:
-
 1、Go to [webapp](src/main/webapp) and run vue ssr build
+
+> You can run below simply by ``./src/main/webapp/build/build.ssr.sh``
+
+or you can also do the follow:
 
 ```
 cd src/main/webapp && yarn && yarn build:ssr
@@ -42,6 +42,15 @@ mvn clean package -DskipTests
 
 ```
 mvn spring-boot:run
+```
+
+### Notice!!!
+
+Add ``https://stackoverflow.com/questions/14763079/what-are-the-xms-and-xmx-parameters-when-starting-jvms``
+incase of StackOverFlowError
+
+```
+-Xmx2048m -Xms512m
 ```
 
 4、Copy ``target/ROOT.war`` to ``${TOMCAT_HOME}/webapps``
