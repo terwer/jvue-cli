@@ -81,7 +81,7 @@ public class VueRendererImpl implements VueRenderer {
             nashornEventLoop.callMember("process");
 
             int i = 0;
-            int jsWaitTimeout = 1000 * 10;
+            int jsWaitTimeout = 1000 * 2;
             int interval = 200; // 等待时间间隔
             int totalWaitTime = 0; // 实际等待时间
 
@@ -108,6 +108,7 @@ public class VueRendererImpl implements VueRenderer {
                 logger.info("renderServer获取数据成功");
                 logger.debug("htmlObject:" + JSON.toJSONString(htmlObject));
                 int status = (int) htmlObject.get("status");
+                logger.info("msg:" + htmlObject.get("msg"));
                 if (status == 0) {
                     resultMap.put("renderStatus", 0);
                     resultMap.put("content", htmlObject.get("msg"));
