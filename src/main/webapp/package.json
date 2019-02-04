@@ -3,13 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "clean": "rimraf dist && rimraf ssrdist",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "inspect": "vue inspect",
     "lint:src": "eslint ./src/*.js --fix --color",
     "lint:ssr": "eslint ./src/ssr/*.js --fix --color",
+    "lint:app": "eslint ./src/App.vue --fix --color",
     "lint:components": "eslint ./src/components --ext .vue --fix --color",
+    "lint:views": "eslint ./src/views --ext .vue --fix --color",
     "lint:build": "eslint ./build/*.js --fix --color",
     "build:entry-client": "vue-cli-service build --dest ssrcdist src/ssr/entry-client.js --report-json",
     "test:entry-client": "node ./tests/ssr/test-entry-client.js",
@@ -18,6 +21,7 @@
     "build:ssr": "./build/build.ssr.sh"
   },
   "dependencies": {
+    "bootstrap-vue": "^2.0.0-rc.11",
     "vue": "^2.5.22",
     "vue-router-nashorn": "file:./vender/lib/vue-router-nashorn",
     "vue-server-renderer": "^2.5.22"
@@ -35,6 +39,7 @@
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.9.0",
+    "rimraf": "^2.6.3",
     "sass-loader": "^7.0.1",
     "vue-template-compiler": "^2.5.22",
     "webpack-cli": "^3.2.1"

@@ -1,22 +1,72 @@
 import Vue from "vue";
 import VueRouter from "vue-router-nashorn";
-import Home from "./views/Home.vue";
+
+// 组件引用
+import Index from "./views/Index.vue";
+import About from "./views/About.vue";
+import Detail from "./views/Detail";
+import Category from "./views/Category";
+import Login from "./views/Login";
+import Register from "./views/Register";
+import Search from "./views/Search";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: Home
-  },
-  {
-    path: "/about",
-    name: "about",
+    name: "index",
+    component: Index
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ "./views/About.vue")
+    // component: () => import(/* webpackChunkName: "index" */ "./views/Index.vue")
+  },
+  { path: "/home", name: "home", component: Index },
+  {
+    path: "/about",
+    name: "about",
+    component: About
+  },
+  {
+    path: "/auth/login",
+    name: "login",
+    component: Login
+  },
+  {
+    path: "/auth/register",
+    name: "register",
+    component: Register
+  },
+  {
+    path: "/s/:k",
+    name: "search",
+    component: Search
+  },
+  {
+    path: "/post/:id.html",
+    name: "detail",
+    component: Detail
+  },
+  {
+    path: "/p/:id.html",
+    name: "detail-short",
+    component: Detail
+  },
+  {
+    path: "/category/:id",
+    name: "category",
+    component: Category
+  },
+  {
+    path: "/cat/:id",
+    name: "category-medium",
+    component: Category
+  },
+  {
+    path: "/c/:id",
+    name: "category-short",
+    component: Category
   }
 ];
 

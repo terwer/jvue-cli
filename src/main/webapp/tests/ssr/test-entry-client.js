@@ -19,7 +19,6 @@ global.window = window;
 // Require compiled script
 // =============================
 require("../../ssrdist/client/js/app.js");
-require("../../ssrdist/client/js/about.js");
 
 // =============================
 // Test script start

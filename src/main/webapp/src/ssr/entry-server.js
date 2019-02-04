@@ -1,4 +1,7 @@
+// yarn babel ./src/ssr/entry-server.js --presets=@babel/preset-env
+
 import { createApp } from "../main";
+import { isInNashorn } from "../commom/NashornUtil";
 
 const renderVueComponentToString = require("vue-server-renderer/basic.js");
 
@@ -14,6 +17,11 @@ global.renderServer = context => {
   return new Promise((resolve, reject) => {
     // 解构赋值
     const { vm, router } = createApp();
+    // 执行nashorn事件循环
+    console.log("global.nashornEventLoop", global.nashornEventLoop);
+    if (isInNashorn() && global.nashornEventLoop) {
+      global.nashornEventLoop.process();
+    }
     // 设置服务器端router的位置
     // 给路由推一条记录，上面的{app,router}只是一个对象，没有走真正渲染那步，
     // 所以只有主动调用router.push()它才会执行这部分的代码，
@@ -22,32 +30,50 @@ global.renderServer = context => {
     console.log(`context.url:${context.url}`);
 
     // 等到router将可能的异步组件和钩子函数解析完
-    //router.onReady基本上只有在服务端才会被用到，
+    // router.onReady基本上只有在服务端才会被用到，
     // 在路由记录被推进去的时候，路由所有的异步操作都做完的时候才会调用这个回调，
     // 比如在服务端被渲染的时候，获取一些数据的操作
-    router.onReady(() => {
-      const matchedComponents = router.getMatchedComponents();
-      // 匹配不到的路由，执行reject函数，并返回 404
-      if (!matchedComponents.length) {
-        return reject({ status: 0, data: null, msg: "404 Not Found" });
-      }
-
-      //Render the html string
-      renderVueComponentToString(vm, context, (err, html) => {
-        if (err) {
-          console.log("Error rendering to string: ");
-          console.log(err);
-          return reject({
+    router.onReady(
+      () => {
+        const matchedComponents = router.getMatchedComponents();
+        // 匹配不到的路由，执行reject函数，并返回 404
+        if (!matchedComponents.length) {
+          resolve({
             status: 0,
-            data: null,
-            msg: "500 Internal Server Error"
+            data: "No matchedComponents",
+            msg: "404 Not Found"
           });
         }
 
-        // Promise应该resolve渲染后的html
-        resolve({ status: 1, data: html, msg: "200 OK" });
-      });
-    }, reject);
+        //Render the html string
+        console.log("Render the html string");
+        renderVueComponentToString(vm, context, (err, html) => {
+          if (err) {
+            console.log("Error rendering to string:");
+            console.log(err);
+            resolve({
+              status: 0,
+              data: err,
+              msg: "500 Internal Server Error:renderVueComponentToString"
+            });
+          }
+
+          // Promise应该resolve渲染后的html
+          console.log("Promise resolved success");
+          resolve({ status: 1, data: html, msg: "200 OK" });
+        });
+      },
+      err => {
+        // 错误返回
+        console.log("router.onReady error callback");
+        console.log(err);
+        reject({
+          status: 0,
+          data: err,
+          msg: "500 Internal Server Error:router.onReady error callback"
+        });
+      }
+    );
   });
 };
 

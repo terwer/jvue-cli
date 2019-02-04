@@ -3,9 +3,9 @@ module.exports = {
   pluginOptions: {
   },
   filenameHashing: process.env.NODE_ENV !== "production", // 关闭文件hash
-  // baseUrl: "./",
-  publicPath: "./",
-  assetsDir: "./",
+  // baseUrl: "/",
+  publicPath: "/",
+  // assetsDir: "",
   // css: {
   //   loaderOptions: {
   //     css: {
