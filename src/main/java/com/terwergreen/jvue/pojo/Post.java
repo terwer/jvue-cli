@@ -16,7 +16,6 @@ import java.util.List;
 /**
  * 文章
  */
-@Alias("post")
 public class Post {
     /**
      * 文章ID

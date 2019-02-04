@@ -4,7 +4,7 @@
 
 <mapper namespace="jvue">
     <!-- 根据类型获取文章 -->
-    <resultMap id="postMap" type="post">
+    <resultMap id="postMap" type="com.terwergreen.jvue.pojo.Post">
         <id column="post_id" property="postId"/>
         <result column="post_finished" property="postFinished"/>
         <result column="comment_count" property="commentCount"/>
@@ -17,7 +17,7 @@
         <result column="post_modified" property="postModified"/>
         <!-- 定义多对一关联信息（每个文章对应一个作者） -->
         <!-- <association property="sysUser" resultMap="userMap"/> -->
-        <collection property="postMetas" ofType="postmeta" select="getPostMeta" column="post_id">
+        <collection property="postMetas" ofType="com.terwergreen.jvue.pojo.PostMeta" select="getPostMeta" column="post_id">
         </collection>
     </resultMap>
     <select id="getPostsByType" parameterType="java.util.Map" resultMap="postMap">
@@ -61,7 +61,7 @@
         </choose>
     </select>
     <!-- 获取文章属性 -->
-    <select id="getPostMeta" resultType="postmeta">
+    <select id="getPostMeta" resultType="com.terwergreen.jvue.pojo.PostMeta">
         SELECT pm.meta_key AS metaKey,ifnull(pm.meta_value, '文章') AS metaValue
         FROM bg_postmeta pm
         WHERE pm.post_id = #{post_id}
@@ -81,7 +81,7 @@
         WHERE p.post_id = #{postId}
     </select>
     <!-- 新增文章 -->
-    <insert id="insertPost" useGeneratedKeys="true" keyProperty="postId" keyColumn="post_id" parameterType="post">
+    <insert id="insertPost" useGeneratedKeys="true" keyProperty="postId" keyColumn="post_id" parameterType="com.terwergreen.jvue.pojo.Post">
         INSERT INTO bg_posts(post_type,post_author,post_date,post_modified,
         <if test="postStatus!=null and postStatus!=''">
             post_status,
@@ -106,7 +106,7 @@
         </if>
         #{postRawContent})
     </insert>
-    <update id="updatePost" parameterType="post">
+    <update id="updatePost" parameterType="com.terwergreen.jvue.pojo.Post">
         UPDATE bg_posts
         SET
         <if test="postType!=null and postType!=''">
@@ -139,7 +139,7 @@
         DELETE FROM bg_posts WHERE post_id = #{postId}
     </delete>
     <!--新增或者修改文章属性 -->
-    <insert id="saveOrUpdatePostMeta" parameterType="postmeta">
+    <insert id="saveOrUpdatePostMeta" parameterType="com.terwergreen.jvue.pojo.PostMeta">
         <selectKey keyProperty="count" resultType="int" order="BEFORE">
             SELECT count(*) FROM bg_postmeta WHERE post_id=#{postId} AND meta_key=#{metaKey}
         </selectKey>

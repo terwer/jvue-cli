@@ -13,7 +13,6 @@ import org.apache.ibatis.type.Alias;
  **/
 @Getter
 @Setter
-@Alias("postmeta")
 public class PostMeta {
     private Integer postId;
     private String metaKey;
