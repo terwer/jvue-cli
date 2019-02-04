@@ -25,3 +25,5 @@ yarn-error.log*
 /ssrcdist
 /ssrsdist
 /ssrdist
+
+application-prod.properties
