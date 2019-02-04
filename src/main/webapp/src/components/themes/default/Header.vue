@@ -45,12 +45,9 @@
               ></b-form-input>
               <b-input-group-append>
                 <a :href="searchLink">
-                <b-btn
-                  id="searchsubmit"
-                  type="button"
-                  variant="primary"
-                  >搜索</b-btn
-                >
+                  <b-btn id="searchsubmit" type="button" variant="primary"
+                    >搜索</b-btn
+                  >
                 </a>
               </b-input-group-append>
             </b-input-group>
@@ -94,22 +91,22 @@ export default {
     };
   },
   watch: {
-screenWidth() {
+    screenWidth() {
       const that = this;
       console.log("screenWidth:" + that.screenWidth);
       // 屏幕适配
       that.fitScreen();
     },
-    s(){
+    s() {
       const that = this;
-      that.searchLink ="/s/"+that.s
-      console.log(that.searchLink)
+      that.searchLink = "/s/" + that.s;
+      console.log(that.searchLink);
     }
   },
   data() {
     return {
       s: "",
-      searchLink:"/s/",
+      searchLink: "/s/",
       isMobile: false,
       screenWidth: isInNashorn() ? 0 : document.body.clientWidth, // 屏幕尺寸
       showHeadNav: false
