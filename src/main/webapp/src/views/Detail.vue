@@ -2,7 +2,18 @@
   <b-container fluid>
     <HeaderTime />
     <Header title="jvue" />
-    <h1 class="text-center">This is detail {{ postId }}</h1>
+
+    <b-row>
+      <b-col sm="0" md="0" lg="0" xl="2"></b-col>
+      <b-col>
+        <b-breadcrumb :items="items" />
+        <div id="postContent">
+          <h1 class="text-center">This is detail {{ postId }}</h1>
+        </div>
+      </b-col>
+      <b-col sm="0" md="0" lg="0" xl="2"></b-col>
+    </b-row>
+
     <Footer />
     <FriendLink />
   </b-container>
@@ -36,8 +47,28 @@ export default {
     Header,
     Footer,
     FriendLink
+  },
+  data() {
+    return {
+      items: [
+        {
+          text: "首页",
+          href: "/"
+        },
+        {
+          text: "文章",
+          active: true
+        }
+      ]
+    };
   }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.breadcrumb {
+  margin-top: 10px;
+}
+#postContent {
+}
+</style>
