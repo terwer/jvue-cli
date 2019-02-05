@@ -10,7 +10,7 @@ api
   .getPostList()
   .then(function(response) {
     // handle success
-    // console.log(response);
+    console.log(response.request.res.responseUrl);
     console.log(response.status);
     console.log(response.data);
   })
