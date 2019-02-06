@@ -26,6 +26,9 @@ module.exports = {
       console.log("change webpack config for production");
       // No need for splitting
       config.optimization.splitChunks = false;
+      // axios options
+      config.target = 'node';
+      config.node.process = false;
     } else {
       // 为开发环境修改配置
       // console.log("development");

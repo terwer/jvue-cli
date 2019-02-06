@@ -1,5 +1,6 @@
 <template>
   <div id="postList">
+    <!--
     <b-card
       title="图片文章"
       img-src="https://picsum.photos/600/300/?image=25"
@@ -21,6 +22,7 @@
       <a href="#" class="card-link">Card link</a>
       <b-link href="#" class="card-link">Another link</b-link>
     </b-card>
+    -->
   </div>
 </template>
 

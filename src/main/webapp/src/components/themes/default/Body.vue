@@ -8,7 +8,7 @@
         </b-col>
 
         <b-col sm="12" md="12" lg="12" xl="4">
-          <Aside />
+          <!--<Aside />-->
         </b-col>
       </b-row>
     </b-col>
