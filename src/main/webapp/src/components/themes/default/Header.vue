@@ -59,7 +59,7 @@
   </b-row>
 </template>
 <script>
-import { isInNashorn } from "../../../commom/NashornUtil";
+import { isInNashorn } from "../../../common/NashornUtil";
 import HeaderMenu from "./HeaderMenu.vue";
 
 export default {

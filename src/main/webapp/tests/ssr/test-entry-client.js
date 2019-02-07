@@ -6,14 +6,6 @@
 // =============================
 // This is polyfill not in node
 // =============================
-//
-// 模拟window
-var window = {
-  navigator: {
-    userAgent: "Chrome"
-  }
-};
-global.window = window;
 
 // =============================
 // Require compiled script
@@ -23,10 +15,9 @@ require("../../ssrdist/client/js/app.js");
 // =============================
 // Test script start
 // =============================
-// const inBrowser = typeof window !== 'undefined' && typeof document !== 'undefined'
-// import { inBrowser } from "../../src/lib/vue-router-nashorn-3.0.2/src/util/dom"
-var dom = require("../../vender/lib/vue-router-nashorn/src/util/dom");
-const inBrowser = dom.inBrowser;
+// const inBrowser = typeof window !== 'undefined'
+// import { inBrowser } from "../../src/common/NashornUtil";
+var inBrowser = require("../../src/common/NashornUtil").inBrowser;
 
 if (inBrowser) {
   console.log("inBrowser");
