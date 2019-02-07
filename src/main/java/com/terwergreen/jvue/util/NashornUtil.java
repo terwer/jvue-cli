@@ -1,5 +1,6 @@
 package com.terwergreen.jvue.util;
 
+import com.alibaba.fastjson.JSON;
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
@@ -15,6 +16,8 @@ import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -129,15 +132,29 @@ public class NashornUtil {
         // engine.eval("function test(){let num=2;console.log(\"num is:\"+num);return num;}");
         // Object result = engine.callRender("test");
 
-        try {
-            InputStreamReader reader = new FileReader("C:\\Users\\Terwer\\IdeaProjects\\next\\src\\main\\webapp\\ssrdist\\js\\server-bundle.js");
-            Object call = engine.eval(reader);
-            logger.info("call = " + call);
-            Object result = engine.callRender("renderServer");
-            logger.info("result = " + result);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        // try {
+        //    InputStreamReader reader = new FileReader("C:\\Users\\Terwer\\IdeaProjects\\next\\src\\main\\webapp\\ssrdist\\js\\server-bundle.js");
+        //    Object call = engine.eval(reader);
+        //    logger.info("call = " + call);
+        //    Object result = engine.callRender("renderServer");
+        //    logger.info("result = " + result);
+        // } catch (FileNotFoundException e) {
+        //     e.printStackTrace();
+        // }
+
+        // 设置路由上下文
+        Map<String, Object> context = new HashMap<>();
+        context.put("url", "/");
+
+        String promiseScript = "console.log(\"renderServer start in spring boot\");" +
+                "var context = " + JSON.toJSONString(context) + ";" +
+                "var promise = renderServer(context);" +
+                "global.SSRPromise=promise;";
+        logger.info("promiseScript:" + promiseScript);
+        engine.eval(promiseScript);
+
+        ScriptObjectMirror promise = engine.getGlobalGlobalMirrorObject("SSRPromise");
+        logger.debug("promise:" + JSON.toJSONString(promise));
 
     }
 }

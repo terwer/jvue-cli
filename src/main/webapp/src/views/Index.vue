@@ -3,7 +3,7 @@
     <HeaderTime />
     <Header title="jvue" />
     <Body />
-    <!--<Footer />-->
+    <Footer />
     <FriendLink />
   </b-container>
 </template>
@@ -15,7 +15,7 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 import HeaderTime from "../components/themes/default/HeaderTime";
 import Header from "../components/themes/default/Header";
 import Body from "../components/themes/default/Body";
-// import Footer from "../components/themes/default/Footer";
+import Footer from "../components/themes/default/Footer";
 import FriendLink from "../components/themes/default/FriendLink";
 
 export default {
@@ -38,12 +38,10 @@ export default {
     HeaderTime,
     Header,
     Body,
-    // Footer,
+    Footer,
     FriendLink
   }
 };
 </script>
 
-<style scoped>
-/*@import "style.css";*/
-</style>
+<style scoped></style>

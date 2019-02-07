@@ -2,6 +2,7 @@ package com.terwergreen.jvue.vue.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.terwergreen.jvue.util.NashornUtil;
+import com.terwergreen.jvue.util.VueUtil;
 import com.terwergreen.jvue.vue.VueRenderer;
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
 import org.apache.commons.logging.Log;
@@ -73,7 +74,7 @@ public class VueRendererImpl implements VueRenderer {
             engine.eval(promiseScript);
 
             ScriptObjectMirror promise = engine.getGlobalGlobalMirrorObject("SSRPromise");
-            logger.debug("promise" + JSON.toJSONString(promise));
+            logger.debug("promise:" + JSON.toJSONString(promise));
             promise.callMember("then", fnResolve, fnRejected);
 
             int i = 0;
@@ -121,7 +122,7 @@ public class VueRendererImpl implements VueRenderer {
                     resultMap.put("content", "500 Internal Server Error:promiseRejected");
                     logger.error("500 Internal Server Error:promiseRejected");
                 } else {
-                    resultMap.put("renderStatus", 0);
+                    resultMap.put("renderStatus", 1);
                     resultMap.put("content", htmlObject.get("data"));
                 }
             }

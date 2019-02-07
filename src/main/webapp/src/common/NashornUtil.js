@@ -3,7 +3,8 @@
  * @returns {boolean}
  */
 var isInNashorn = function isInNashorn() {
-  var isInNashorn = typeof document === "undefined" || typeof window === "undefined";
+  var isInNashorn =
+    typeof document === "undefined" || typeof window === "undefined";
   console.log("isInNashorn:" + isInNashorn);
   return isInNashorn;
 };
