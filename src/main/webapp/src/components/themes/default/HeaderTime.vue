@@ -31,7 +31,7 @@ import {
   getPopTime,
   getShengXiao,
   getTradTime
-} from "../../../commom/DateUtil";
+} from "../../../common/DateUtil";
 export default {
   name: "HeaderTime",
   // 钩子函数

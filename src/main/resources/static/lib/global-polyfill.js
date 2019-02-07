@@ -1,21 +1,11 @@
 /**
  * poli-fill the following
- * self,global,process,console,Object.assign
+ * global,process,console,Object.assign
  * setTimeout,clearTimeout,setImmediate,clearImmediate,setInterval,clearInterval
  * XMLHttpRequest
  */
-var self = this;
 // 模拟global
 var global = this;
-
-// 模拟process
-var process = {
-    env: {
-        VUE_ENV: "server",
-        NODE_ENV: "production"
-    }
-};
-global.process = process;
 
 // 模拟console
 var console = {};

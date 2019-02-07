@@ -1,5 +1,6 @@
-package com.terwergreen.jvue.utils;
+package com.terwergreen.jvue.util;
 
+import com.alibaba.fastjson.JSON;
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
@@ -15,6 +16,8 @@ import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -58,11 +61,26 @@ public class NashornUtil {
         engine.setBindings(sc.getBindings(ScriptContext.ENGINE_SCOPE), ScriptContext.ENGINE_SCOPE);
 
         try {
-            // 编译nashorn-polyfill
+            // 编译global-polyfill
             engine.eval(read(LIB_DIR + File.separator + "global-polyfill.js"));
             logger.info("polyfill global finish");
-            engine.eval(read(LIB_DIR + File.separator + "timer-polyfill.js"));
-            logger.info("polyfill timer finish");
+
+            // 编译process
+            engine.eval(read(LIB_DIR + File.separator + "process-polyfill.js"));
+            logger.info("polyfill process finish");
+
+            // 编译promise
+            engine.eval(read(LIB_DIR + File.separator + "promise-polyfill.js"));
+            logger.info("polyfill promise finish");
+
+            // 编译setTimeout
+            engine.eval(read(LIB_DIR + File.separator + "setTimeout-polyfill.js"));
+            logger.info("polyfill setTimeout finish");
+
+            // 编译Vue server
+            engine.eval(VueUtil.readVueFile("app.js"));
+            logger.info("Vue server编译成功，编译引擎为Nashorn");
+
             logger.info("nashorn-polyfill编译成功，编译引擎为Nashorn");
         } catch (ScriptException e) {
             logger.error("nashorn-polyfill解析错误", e);
@@ -114,15 +132,29 @@ public class NashornUtil {
         // engine.eval("function test(){let num=2;console.log(\"num is:\"+num);return num;}");
         // Object result = engine.callRender("test");
 
-        try {
-            InputStreamReader reader = new FileReader("C:\\Users\\Terwer\\IdeaProjects\\next\\src\\main\\webapp\\ssrdist\\js\\server-bundle.js");
-            Object call = engine.eval(reader);
-            logger.info("call = " + call);
-            Object result = engine.callRender("renderServer");
-            logger.info("result = " + result);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        // try {
+        //    InputStreamReader reader = new FileReader("C:\\Users\\Terwer\\IdeaProjects\\next\\src\\main\\webapp\\ssrdist\\js\\server-bundle.js");
+        //    Object call = engine.eval(reader);
+        //    logger.info("call = " + call);
+        //    Object result = engine.callRender("renderServer");
+        //    logger.info("result = " + result);
+        // } catch (FileNotFoundException e) {
+        //     e.printStackTrace();
+        // }
+
+        // 设置路由上下文
+        Map<String, Object> context = new HashMap<>();
+        context.put("url", "/");
+
+        String promiseScript = "console.log(\"renderServer start in spring boot\");" +
+                "var context = " + JSON.toJSONString(context) + ";" +
+                "var promise = renderServer(context);" +
+                "global.SSRPromise=promise;";
+        logger.info("promiseScript:" + promiseScript);
+        engine.eval(promiseScript);
+
+        ScriptObjectMirror promise = engine.getGlobalGlobalMirrorObject("SSRPromise");
+        logger.debug("promise:" + JSON.toJSONString(promise));
 
     }
 }

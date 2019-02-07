@@ -17,12 +17,15 @@ const routes = [
     path: "/",
     name: "index",
     component: Index
+  },
+  {
+    path: "/home",
+    name: "home",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    // component: () => import(/* webpackChunkName: "index" */ "./views/Index.vue")
+    component: () => import(/* webpackChunkName: "home" */ "./views/Index.vue")
   },
-  { path: "/home", name: "home", component: Index },
   {
     path: "/about",
     name: "about",
@@ -72,7 +75,7 @@ const routes = [
 
 export function createRouter() {
   return new VueRouter({
-    mode: "history", // process.ssr ? "history" : "hash",
+    mode: "history", // TODO:process.ssr ? "history" : "hash",
     base: process.env.BASE_URL,
     routes: routes
   });

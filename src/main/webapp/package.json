@@ -12,6 +12,7 @@
     "test:entry-client": "node ./tests/ssr/test-entry-client.js",
     "build:entry-server": "vue-cli-service build --dest ssrsdist src/ssr/entry-server.js --report-json",
     "test:entry-server": "node ./tests/ssr/test-entry-server.js",
+    "test": "yarn test:entry-client && yarn test:entry-server",
     "build:ssr": "./build/build.ssr.sh"
   },
   "dependencies": {
