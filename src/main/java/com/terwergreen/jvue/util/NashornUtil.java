@@ -63,15 +63,15 @@ public class NashornUtil {
             logger.info("polyfill global finish");
 
             // 编译process
-            engine.eval("var process = { env: { VUE_ENV: \"server\", NODE_ENV: \"production\" }}; this.global = { process: process };");
+            engine.eval(read(LIB_DIR + File.separator + "process-polyfill.js"));
             logger.info("polyfill process finish");
 
             // 编译promise
-            engine.eval("load('classpath:net/arnx/nashorn/lib/promise.js')");
+            engine.eval(read(LIB_DIR + File.separator + "promise-polyfill.js"));
             logger.info("polyfill promise finish");
 
             // 编译setTimeout
-            engine.eval(read(LIB_DIR + File.separator + "setTimeout-nashorn.js"));
+            engine.eval(read(LIB_DIR + File.separator + "setTimeout-polyfill.js"));
             logger.info("polyfill setTimeout finish");
 
             // 编译Vue server
