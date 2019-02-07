@@ -6,14 +6,6 @@
 // =============================
 // This is polyfill not in node
 // =============================
-//
-// 模拟window
-var window = {
-  navigator: {
-    userAgent: "Chrome"
-  }
-};
-global.window = window;
 
 // =============================
 // Require compiled script
@@ -30,8 +22,6 @@ const context = {
 };
 
 const promise = global.renderServer(context);
-console.log("promise");
-console.log(promise);
 if (promise) {
   promise.then(
     resolve => {
@@ -43,6 +33,8 @@ if (promise) {
       console.log(reject);
     }
   );
+} else {
+  console.log("promise is undefined");
 }
 
 // DEMO
