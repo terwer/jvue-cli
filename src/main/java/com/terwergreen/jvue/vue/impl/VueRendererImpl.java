@@ -1,8 +1,8 @@
 package com.terwergreen.jvue.vue.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.terwergreen.jvue.utils.NashornUtil;
-import com.terwergreen.jvue.utils.VueUtil;
+import com.terwergreen.jvue.util.NashornUtil;
+import com.terwergreen.jvue.util.VueUtil;
 import com.terwergreen.jvue.vue.VueRenderer;
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
 import org.apache.commons.logging.Log;
@@ -38,7 +38,7 @@ public class VueRendererImpl implements VueRenderer {
         synchronized (promiseLock) {
             htmlObject = (ScriptObjectMirror) object;
             promiseResolved = true;
-            logger.info("promiseResolved");
+            logger.info("fnResolve=>promiseResolved");
         }
     };
 
@@ -46,16 +46,13 @@ public class VueRendererImpl implements VueRenderer {
         synchronized (promiseLock) {
             htmlObject = (ScriptObjectMirror) object;
             promiseRejected = true;
-            logger.info("promiseRejected");
+            logger.info("fnRejected=>promiseRejected");
         }
     };
 
     public VueRendererImpl() {
         // 获取Javascript引擎
         engine = NashornUtil.getInstance();
-        // 编译Vue server
-        engine.eval(VueUtil.readVueFile("app.js"));
-        logger.info("Vue server编译成功，编译引擎为Nashorn");
     }
 
     @Override
@@ -64,21 +61,17 @@ public class VueRendererImpl implements VueRenderer {
         resultMap.put("rnd", System.currentTimeMillis());
         resultMap.put("showError", SHOW_SERVER_ERROR);
 
-        ScriptObjectMirror nashornEventLoop = null;
         try {
             logger.info("服务端调用renderServer前，设置路由上下文context:" + JSON.toJSONString(context));
 
-            promiseResolved = false;
+            engine.eval("console.log(\"renderServer test start\");" +
+                    "var context = {  url: \"/\"};" +
+                    "var promise = renderServer(context);" +
+                    "this.SSRPromise=promise;");
 
-            // 调用render方法返回promise
-            ScriptObjectMirror promise = (ScriptObjectMirror) engine.callRender("renderServer", context);
+            ScriptObjectMirror promise = engine.getGlobalGlobalMirrorObject("SSRPromise");
             logger.debug("promise" + JSON.toJSONString(promise));
             promise.callMember("then", fnResolve, fnRejected);
-
-            // 执行nashornEventLoops.process()使主线程执行回调函数
-            // engine.eval("global.nashornEventLoop.process();");
-            nashornEventLoop = engine.getGlobalGlobalMirrorObject("nashornEventLoop");
-            nashornEventLoop.callMember("process");
 
             int i = 0;
             int jsWaitTimeout = 1000 * 2;
@@ -134,10 +127,7 @@ public class VueRendererImpl implements VueRenderer {
             resultMap.put("content", "failed to render vue component");
             logger.error("failed to render vue component", e);
         } finally {
-            // reset nashornEventLoop
-            logger.info("reset nashornEventLoop");
-            // engine.eval("global.nashornEventLoop.reset();");
-            nashornEventLoop.callMember("reset");
+            logger.info("renderContent finally");
         }
         return resultMap;
     }

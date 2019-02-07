@@ -116,6 +116,12 @@
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.2.5</version>
         </dependency>
+        <!-- nashorn-promise -->
+        <dependency>
+            <groupId>net.arnx</groupId>
+            <artifactId>nashorn-promise</artifactId>
+            <version>0.1.1</version>
+        </dependency>
 
         <!-- Web前端开发库 -->
         <!-- webjars -->

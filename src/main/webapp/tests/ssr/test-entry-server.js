@@ -16,10 +16,7 @@ require("../../ssrdist/server/app.js");
 // Test script start
 // =============================
 console.log("renderServer test start");
-const context = {
-  // url: "/"
-  url: "/post/my-post.html"
-};
+const context = { url: "/" };
 
 const promise = global.renderServer(context);
 if (promise) {

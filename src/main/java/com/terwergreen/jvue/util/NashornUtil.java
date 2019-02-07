@@ -1,4 +1,4 @@
-package com.terwergreen.jvue.utils;
+package com.terwergreen.jvue.util;
 
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
@@ -58,11 +58,26 @@ public class NashornUtil {
         engine.setBindings(sc.getBindings(ScriptContext.ENGINE_SCOPE), ScriptContext.ENGINE_SCOPE);
 
         try {
-            // 编译nashorn-polyfill
+            // 编译global-polyfill
             engine.eval(read(LIB_DIR + File.separator + "global-polyfill.js"));
             logger.info("polyfill global finish");
-            engine.eval(read(LIB_DIR + File.separator + "timer-polyfill.js"));
-            logger.info("polyfill timer finish");
+
+            // 编译process
+            engine.eval("var process = { env: { VUE_ENV: \"server\", NODE_ENV: \"production\" }}; this.global = { process: process };");
+            logger.info("polyfill process finish");
+
+            // 编译promise
+            engine.eval("load('classpath:net/arnx/nashorn/lib/promise.js')");
+            logger.info("polyfill promise finish");
+
+            // 编译setTimeout
+            engine.eval(read(LIB_DIR + File.separator + "setTimeout-nashorn.js"));
+            logger.info("polyfill setTimeout finish");
+
+            // 编译Vue server
+            engine.eval(VueUtil.readVueFile("app.js"));
+            logger.info("Vue server编译成功，编译引擎为Nashorn");
+
             logger.info("nashorn-polyfill编译成功，编译引擎为Nashorn");
         } catch (ScriptException e) {
             logger.error("nashorn-polyfill解析错误", e);

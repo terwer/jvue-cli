@@ -1,4 +1,4 @@
-package com.terwergreen.jvue.utils;
+package com.terwergreen.jvue.util;
 
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.io.FilenameUtils;
