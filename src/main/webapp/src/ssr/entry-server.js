@@ -18,10 +18,10 @@ global.renderServer = context => {
     // 解构赋值
     const { vm, router } = createApp();
     // 执行nashorn事件循环
-    console.log("global.nashornEventLoop", global.nashornEventLoop);
-    if (isInNashorn() && global.nashornEventLoop) {
-      global.nashornEventLoop.process();
-    }
+    // console.log("global.nashornEventLoop", global.nashornEventLoop);
+    // if (isInNashorn() && global.nashornEventLoop) {
+    //   global.nashornEventLoop.process();
+    // }
     // 设置服务器端router的位置
     // 给路由推一条记录，上面的{app,router}只是一个对象，没有走真正渲染那步，
     // 所以只有主动调用router.push()它才会执行这部分的代码，
@@ -38,7 +38,7 @@ global.renderServer = context => {
         const matchedComponents = router.getMatchedComponents();
         // 匹配不到的路由，执行reject函数，并返回 404
         if (!matchedComponents.length) {
-          resolve({
+         return reject({
             status: 0,
             data: "No matchedComponents",
             msg: "404 Not Found"
@@ -51,7 +51,7 @@ global.renderServer = context => {
           if (err) {
             console.log("Error rendering to string:");
             console.log(err);
-            resolve({
+            return reject({
               status: 0,
               data: err,
               msg: "500 Internal Server Error:renderVueComponentToString"

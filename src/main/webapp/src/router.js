@@ -1,5 +1,5 @@
 import Vue from "vue";
-import VueRouter from "vue-router-nashorn";
+import VueRouter from "vue-router";
 
 // 组件引用
 import Index from "./views/Index.vue";

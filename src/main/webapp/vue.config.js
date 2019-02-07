@@ -1,7 +1,6 @@
 module.exports = {
   // 插件配置
-  pluginOptions: {
-  },
+  pluginOptions: {},
   filenameHashing: process.env.NODE_ENV !== "production", // 关闭文件hash
   // baseUrl: "/",
   publicPath: "/",
