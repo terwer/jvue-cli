@@ -1,23 +1,8 @@
-import Vue from "vue";
-import App from "./App.vue";
-import { createRouter } from "./router";
+import Vue from 'vue'
+import App from './App.vue'
 
-// 组件引用
-import BootstrapVue from "bootstrap-vue";
+Vue.config.productionTip = false
 
-// 组建注册
-Vue.use(BootstrapVue);
-
-Vue.config.productionTip = false;
-
-export function createApp() {
-  // 创建 router 实例
-  const router = createRouter();
-  const vm = new Vue({
-    router,
-    render: h => h(App)
-  });
-
-  // 返回 vm 和 router
-  return { vm, router };
-}
+new Vue({
+  render: h => h(App),
+}).$mount('#app')

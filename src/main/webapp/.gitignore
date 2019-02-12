@@ -19,11 +19,3 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
-
-*.generated.js
-
-/ssrcdist
-/ssrsdist
-/ssrdist
-
-application-prod.properties

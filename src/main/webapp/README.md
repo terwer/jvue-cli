@@ -1,40 +1,28 @@
 # webapp
 
 ## Project setup
-
 ```
-yarn
-```
-
-### Notice!!! Install plugins
-
-```
-yarn add file:./src/lib/vue-router-nashorn
+yarn install
 ```
 
 ### Compiles and hot-reloads for development
 ```
-yarn serve
+yarn run serve
 ```
 
 ### Compiles and minifies for production
 ```
-yarn build
-```
-
-### Compiles and minifies for ssr production
-```
-yarn build:ssr
+yarn run build
 ```
 
 ### Run your tests
 ```
-yarn test
+yarn run test
 ```
 
 ### Lints and fixes files
 ```
-yarn lint
+yarn run lint
 ```
 
 ### Customize configuration

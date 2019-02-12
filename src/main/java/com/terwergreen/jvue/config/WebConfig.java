@@ -30,10 +30,8 @@ public class WebConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         logger.info("添加静态资源映射");
         // 静态资源映射
-        // 客户端渲染
-        // registry.addResourceHandler("/**").addResourceLocations("classpath:/META-INF/resources/dist/");
-        // 服务端渲染
-        registry.addResourceHandler("/**").addResourceLocations("classpath:/META-INF/resources/ssrdist/client/");
+        // registry.addResourceHandler("/**").addResourceLocations("classpath:/dist/");
+        registry.addResourceHandler("/**").addResourceLocations("classpath:/templates/");
 
         // swagger-ui
         logger.info("映射swagger-ui");

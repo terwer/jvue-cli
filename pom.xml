@@ -5,18 +5,40 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.2.RELEASE</version>
+        <version>2.1.1.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.terwergreen</groupId>
-    <artifactId>jvue-cli</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>jvue-cli</name>
-    <description>Vue cli 3 SSR for Spring Boot</description>
+    <artifactId>jvue</artifactId>
+    <version>${projectVersion}</version>
+    <name>${projectName}</name>
+    <description>Next light-weight,responsive project With Vue,Spring Boot and Java GraalVM.js Script engine for server-side-rendering</description>
+
+    <profiles>
+        <profile>
+            <id>application-config</id>
+            <properties>
+                <activatedProperties>dev</activatedProperties>
+                <projectName>JVue Framework</projectName>
+                <projectVersion>1.0.2</projectVersion>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
 
     <properties>
         <java.version>1.8</java.version>
     </properties>
+
+    <repositories>
+        <!-- Easy to use package repository for Gi -->
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 
     <dependencies>
         <!-- Web -->
@@ -45,17 +67,58 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.47</version>
         </dependency>
+        <!-- commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.8.1</version>
+        </dependency>
         <!-- 文件处理 -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.6</version>
         </dependency>
+        <!-- commons-configuration -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-configuration2</artifactId>
+            <version>2.4</version>
+        </dependency>
+        <!-- commons-beanutils -->
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.9.3</version>
+        </dependency>
+        <!-- Markdown -->
+        <dependency>
+            <groupId>com.vladsch.flexmark</groupId>
+            <artifactId>flexmark-all</artifactId>
+            <version>0.34.58</version>
+        </dependency>
         <!-- 简化Getter Setter -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.4</version>
+        </dependency>
+        <!-- swagger -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+        <!-- 分页插件 -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.5</version>
         </dependency>
         <!-- 数据库连接池 -->
         <dependency>
@@ -75,53 +138,32 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!-- Markdown -->
+        <!-- guava -->
         <dependency>
-            <groupId>com.vladsch.flexmark</groupId>
-            <artifactId>flexmark-all</artifactId>
-            <version>0.34.58</version>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>27.0.1-jre</version>
         </dependency>
-        <!-- commons-lang3 -->
+        <!--graalvm.js -->
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.8.1</version>
+            <groupId>org.graalvm.js</groupId>
+            <artifactId>js</artifactId>
+            <version>1.0.0-rc12</version>
         </dependency>
-        <!-- commons-configuration -->
+        <!-- j2v8 -->
+        <!-- j2v8_linux_x86_64 -->
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-configuration2</artifactId>
-            <version>2.4</version>
+            <groupId>com.eclipsesource.j2v8</groupId>
+            <artifactId>j2v8_linux_x86_64</artifactId>
+            <version>4.8.0</version>
         </dependency>
-        <!-- commons-beanutils -->
+        <!-- j2v8_win32_x86_64
         <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-            <version>1.9.3</version>
+            <groupId>com.eclipsesource.j2v8</groupId>
+            <artifactId>j2v8_win32_x86_64</artifactId>
+            <version>4.6.0</version>
         </dependency>
-        <!-- swagger -->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.9.2</version>
-        </dependency>
-        <!-- 分页插件 -->
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>1.2.5</version>
-        </dependency>
-        <!-- nashorn-promise -->
-        <dependency>
-            <groupId>net.arnx</groupId>
-            <artifactId>nashorn-promise</artifactId>
-            <version>0.1.1</version>
-        </dependency>
+        -->
 
         <!-- Web前端开发库 -->
         <!-- webjars -->
@@ -144,31 +186,50 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-                <excludes>
-                    <exclude>rebel.xml</exclude>
-                </excludes>
             </resource>
             <resource>
                 <directory>src/main/webapp</directory>
-                <!--注意此次必须要放在此目录下才能被访问到 -->
-                <targetPath>META-INF/resources</targetPath>
+                <filtering>false</filtering>
                 <includes>
                     <!-- 客户端渲染
                     <include>dist/**</include>
                     -->
                     <!-- 服务端渲染 -->
-                    <include>ssrdist/**</include>
+                    <include>templates/**</include>
                 </includes>
+                <excludes>
+                    <exclude>templates/entry-server.css</exclude>
+                </excludes>
             </resource>
         </resources>
 
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>com.terwergreen.jvue.CLI</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>

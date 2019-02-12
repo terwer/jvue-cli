@@ -1,6 +1,6 @@
 package com.terwergreen.jvue.controller;
 
-import com.terwergreen.jvue.vue.VueRenderer;
+import com.terwergreen.jvue.vendor.vue.VueRenderer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +29,7 @@ public class MainController {
 
         Map<String, Object> resultMap = vueRenderer.renderContent(context);
         model.addAllAttributes(resultMap);
-        return "index";
+        return "index.ssr";
     }
 
     @RequestMapping("/home")
