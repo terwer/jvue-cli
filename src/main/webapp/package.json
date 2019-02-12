@@ -5,15 +5,29 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
+    "lint": "vue-cli-service lint --fix --color",
+    "ssr:build": "vue-cli-service ssr:build",
+    "ssr:fix": "vue-cli-service ssr:fix",
+    "ssr:fix-vuex": "vue-cli-service ssr:fix-vuex",
+    "ssr:serve": "vue-cli-service ssr:serve",
+    "ssr:start": "vue-cli-service ssr:start",
+    "ssr:static": "vue-cli-service ssr:static",
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "@uvue/core": "^0.1.0-alpha",
+    "@uvue/server": "^0.1.0-alpha",
+    "compression": "^1.7.3",
+    "connect": "^3.6.6",
+    "cookie-parser": "^1.4.3",
+    "core-js": "^2.5.7",
+    "serve-static": "^1.13.2",
     "vue": "^2.5.22",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
+    "@uvue/vue-cli-plugin-ssr": "^0.1.0-alpha.16",
     "@vue/cli-plugin-babel": "^3.4.0",
     "@vue/cli-plugin-eslint": "^3.4.0",
     "@vue/cli-plugin-unit-jest": "^3.4.0",
