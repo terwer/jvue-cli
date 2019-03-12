@@ -1,11 +1,11 @@
-## jvue-cli
-Next light-weight,responsive project 
-With Vue,webpack,Vue Cli 3,Spring Boot and eclipse j2v8 Script engine for server-side-rendering
+## jvue
+Next light-weight,responsive project
+With Docker,Vue,webpack,Spring Boot
 
 # Note !!!
 
-This project has moved to our JVue Framework Team,
+This project has moved to my personal repository,
 
-see https://github.com/jvuesource/jvue-cli3
+see https://github.com/terwer/jvue
 
 For detailed explanation on how things work, please visit [author's blog](http://www.terwergreen.com).
